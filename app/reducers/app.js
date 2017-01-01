@@ -4,14 +4,14 @@ import { UPDATE_USER_LOCATION } from '../constants';
 var initialState = fromJS({
   "mapData": {},
   "user": {
-      "location": null
+      "center": null
   }
 });
 
 export default function appReducer(state = initialState, action) {
     switch(action.type) {
         case UPDATE_USER_LOCATION:
-            return state.setIn(["user", "location"], action.coords)
+            return state.setIn(["user", "center"], action.center)
         default :
              return state;
     }

@@ -11,7 +11,7 @@ class App extends React.Component {
 
 function mapStateProps(state) {
     return {
-        'location': location(state)
+        'center': location(state)
     }
 }
 
