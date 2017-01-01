@@ -1,5 +1,4 @@
 import React from 'react';
-import { GMap } from '../GMap';
 import { loadGMapScript, loadGMap } from './utils.js'; 
 
 export default class MapView extends React.Component {
