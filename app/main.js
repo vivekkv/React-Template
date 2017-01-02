@@ -1,5 +1,5 @@
-import React from 'react'
 import 'babel-polyfill'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
@@ -23,7 +23,7 @@ const store = createStore(combineReducers({
 }), {
     
 }, compose(...enhancers))
-sagaMiddleware.run(helloSaga);
+//sagaMiddleware.run(helloSaga);
 
 const history = syncHistoryWithStore(browserHistory, store)
 ReactDOM.render(<Provider store={store}><Router history={history} routes={routes}></Router></Provider>, document.getElementById('root'))

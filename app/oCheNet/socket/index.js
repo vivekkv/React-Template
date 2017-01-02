@@ -4,12 +4,15 @@ export default class Socket {
         this.socket = null;
     }
 
-    connect() {
-        var socket = io.connect();
-        socket.on('hi baby', function(data){
+    init() {
+        this.socket = io.connect();
+        this.socket.on('hi baby', function(data){
+            
         });
-        socket.emit("sayHello", { message: "poo" })
+        this.socket.emit("sayHello", { message: "poo" })
     }
 
-    
+    getSocket() {
+        return this.socket
+    }
 }
