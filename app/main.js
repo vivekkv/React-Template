@@ -1,4 +1,5 @@
 import React from 'react'
+import 'babel-polyfill'
 import ReactDOM from 'react-dom'
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
@@ -8,16 +9,24 @@ import reducers from './reducers/app'
 import routes from './routes'
 import { getUserLocationInfo } from './utils/location'
 import { updateUserLocation } from './actions'
+import createSagaMiddleware from 'redux-saga'
+import { helloSaga } from './sagas/root'
+
+const sagaMiddleware = createSagaMiddleware()
+const middleWares = [sagaMiddleware];
+const devTools = window.devToolsExtension || (() => f=> f);
+const enhancers = [applyMiddleware(...middleWares), devTools()];
 
 const store = createStore(combineReducers({
     routing: routerReducer,
     app    : reducers
 }), {
     
-}, compose(window.devToolsExtension ? window.devToolsExtension() : f => f ))
+}, compose(...enhancers))
+sagaMiddleware.run(helloSaga);
 
+const history = syncHistoryWithStore(browserHistory, store)
+ReactDOM.render(<Provider store={store}><Router history={history} routes={routes}></Router></Provider>, document.getElementById('root'))
 getUserLocationInfo((position) => {
-    const history = syncHistoryWithStore(browserHistory, store)
-    ReactDOM.render(<Provider store={store}><Router history={history} routes={routes}></Router></Provider>, document.getElementById('root'))
     store.dispatch(updateUserLocation(position));
 });

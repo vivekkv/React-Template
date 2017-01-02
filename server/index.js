@@ -39,7 +39,7 @@ app.use(custResponses);
 app.use('/assets', express.static(path.join(__dirname, '../app/static/assets')))
 app.use(express.static("dist"))
 
-app.use("/vehicle", require("./router/Vehicle"))
+app.use("/user", require("./router/user"))
 
 var connectDb = require('./db').connect
 connectDb('mongodb://localhost:27017/OCHE', function (err) {

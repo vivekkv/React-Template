@@ -8,7 +8,8 @@ module.exports = class Vehicle {
 
     register(vehicle, cb) {
         this.DB.collection('Vehicles').insertOne({
-            "owner": "vivek"
+            "userId": vehicle.ownerId, 
+            "numberPlate": vehicle.numberPlate
         }, function(err, result) {
                 if(err) {
                     cb(err, null)
