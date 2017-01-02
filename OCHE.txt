@@ -26,6 +26,19 @@ total runner up in a location => get some of encouragements
 bad runner up in a location => get a motivation 
 
 
+TODO
+=============
 
+Driver Or Rider Connected 
+---------
 
+if driver update his location to his map and show him all connected users in his location\
+if rider then show  the available taxi in his location 
 
+User Registration
+=====================
+
+Rider
+----------
+
+user will give mobile no and vehicle no to sign in to our system

@@ -1,12 +1,8 @@
 var path = require('path')
 var express = require("express")
-var mapRoutes = require('../server/router/map')
 var app = express()
-var db = require('./db')
-var {
-  host,
-  port
-} = require('./common/config')
+var { host, port } = require('./common/config')
+var custResponses = require('./middlewares/customResponses')
 
 /** DEV MODE */
 
@@ -14,7 +10,6 @@ const webpack = require('webpack')
 const webpackMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const config = require('../webpack.config.js')
-
 const compiler = webpack(config)
 const middleware = webpackMiddleware(compiler, {
   publicPath: config.output.publicPath,
@@ -38,11 +33,17 @@ app.get('/', function response(req, res) {
 
 /* END */
 
+
+
+app.use(custResponses);
 app.use('/assets', express.static(path.join(__dirname, '../app/static/assets')))
 app.use(express.static("dist"))
-app.use("/map", mapRoutes)
 
-db.connect('mongodb://localhost:27017/FromMeToU', function (err) {
+app.use("/vehicle", require("./router/Vehicle"))
+
+var connectDb = require('./db').connect
+connectDb('mongodb://localhost:27017/OCHE', function (err) {
+
   if (err) {
     console.log('Unable to connect to Mongo.')
   } else {

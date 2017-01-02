@@ -1,11 +1,17 @@
 import React from 'react';
-import { loadGMapScript, loadGMap } from './utils.js'; 
+import { loadGMapScript, loadGMap, buildMarker } from './utils.js';
+import MarkerRegistry from './Registries/Marker';
+import EventBinder from './Events/eventBinder.js';
+import Socket from '../../oCheNet/socket'
+import uuid from 'node-uuid';
 
 export default class MapView extends React.Component {
 
     constructor() {
         super();
         this.map = null;
+        this.MarkerRegistry = new MarkerRegistry();
+        this.Socket = new Socket().connect();
     }
 
     render() {
@@ -15,43 +21,23 @@ export default class MapView extends React.Component {
     componentDidMount() {
        loadGMapScript().then(() => {
             var latLng = new google.maps.LatLng(9.9312328, 76.26730409999999)
-            this.map = new google.maps.Map(document.getElementById("gmapWrapper"), {
+            this.map = loadGMap(document.getElementById("gmapWrapper"), {
                 center: latLng,
-                zoom: 8,
-                draggableCursor:'crosshair'
+                zoom: 18,
+                draggableCursor: 'crosshair'
             });
-            this.addLocationMarker();
+            this.addMarker({
+                coords: { lat: 9.9312328, lng: 76.26730409999999 },
+                draggable: true
+            });
+            new EventBinder(this.map).bind();
        })
     }
 
-    componentDidUpdate() {
-
-        console.log(this.props)
-    }
-
-    addLocationMarker() {
-        var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(9.9312328, 76.26730409999999),
-            title: "asd",
-            visible: true,
-            draggable: true
-        });
+    addMarker(options) {
+        var marker = buildMarker(options)
         marker.setMap(this.map);
-    }
-
-    applyProps() {
-        return {
-            options: {
-                styles: this.props.styles,
-                center: this.props.center ? this.props.center : { center: { lat: 0, lng: 0 } }
-            },
-            markers: [{
-                lat: this.props.center ? this.props.center.lat : 0,
-                lng: this.props.center ? this.props.center.lng : 0,
-                draggable: true,
-                icon: '<div class="marker"><img src="https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=A&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1"/></div>'
-            }]
-        }
+        this.MarkerRegistry.add(uuid.v1(), marker, options);
     }
 }
 

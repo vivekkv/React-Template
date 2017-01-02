@@ -5,11 +5,14 @@ var state = {
 }
 
 exports.connect = function(url, done) {
-    if (state.db) return done()
+    if (state.db) return;
     MongoClient.connect(url, function(err, db) {
-        if (err) return done(err)
-        state.db = db
-        done()
+        if (err){
+          throw new Error("MongoDb Connection failed");  
+        } else {
+          state.db = db;
+          done();
+        }
     })
 }
 
@@ -21,8 +24,6 @@ exports.close = function(done) {
   if (state.db) {
     state.db.close(function(err, result) {
       state.db = null
-      state.mode = null
-      done(err)
     })
   }
 }
