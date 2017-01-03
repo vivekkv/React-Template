@@ -5,12 +5,11 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import { Router, Route, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
-import reducers from './reducers/app'
+import appReducer from './reducers/app'
+import mapReducer from './reducers/map'
 import routes from './routes'
-import { getUserLocationInfo } from './utils/location'
-import { updateUserLocation } from './actions'
 import createSagaMiddleware from 'redux-saga'
-import { helloSaga } from './sagas/root'
+import rootSaga from './sagas/root'
 
 const sagaMiddleware = createSagaMiddleware()
 const middleWares = [sagaMiddleware];
@@ -19,14 +18,11 @@ const enhancers = [applyMiddleware(...middleWares), devTools()];
 
 const store = createStore(combineReducers({
     routing: routerReducer,
-    app    : reducers
+    app    : appReducer,
+    map    : mapReducer
 }), {
     
 }, compose(...enhancers))
-//sagaMiddleware.run(helloSaga);
-
+sagaMiddleware.run(rootSaga)
 const history = syncHistoryWithStore(browserHistory, store)
 ReactDOM.render(<Provider store={store}><Router history={history} routes={routes}></Router></Provider>, document.getElementById('root'))
-getUserLocationInfo((position) => {
-    store.dispatch(updateUserLocation(position));
-});

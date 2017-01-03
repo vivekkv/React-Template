@@ -1,4 +1,5 @@
 import uuid from 'node-uuid';
+import _ from 'lodash'
 
 export function loadGMapScript() {
     return new Promise((resolve, reject) => {
@@ -20,7 +21,8 @@ export function buildMarker(options) {
         position: new google.maps.LatLng(options.coords.lat, options.coords.lng),
         title: options.title ? options.title: "",
         visible: options.visible == false ? false : true,
-        draggable: options.draggable == true ? true : false
+        draggable: options.draggable == true ? true : false,
+        icon: options.icon ? options.icon : null
     })
 }
 
@@ -32,7 +34,8 @@ export function buildCircle(map) {
         strokeOpacity: 0.8,
         strokeWeight: 2,
         fillColor: '#FF0000',
-        fillOpacity: 0.35
+        fillOpacity: 0.35,
+        
     })
 }
 
@@ -40,8 +43,8 @@ export function getMapViewPort(map) {
     if(map.getBounds()) {
         return {
             lat0: map.getBounds().getNorthEast().lat(),
-            lng0: map.getBounds().getNorthEast().lng(),
             lat1: map.getBounds().getSouthWest().lat(),
+            lng0: map.getBounds().getNorthEast().lng(),
             lng1: map.getBounds().getSouthWest().lng()
         }
     }
@@ -58,9 +61,23 @@ export function addMarkerOnUserLocation(map, center, markerRegistry, showCircle)
         draggable: true
     })
     marker.setMap(map)
-    markerRegistry.add(uuid.v1(), marker)
+    markerRegistry.add("this_user", marker)
     addCircleOnUserLocation(marker, map)
     return marker
+}
+
+export function addDriverMarkerLocations(drivers, markerRegistry, map) {
+    drivers.forEach((driver) => {
+        var driverMarker = markerRegistry.find(driver.id);     
+        if(driverMarker) {
+             
+        } else {
+            var marker = buildMarker({
+                coords: { lat: driver.coords.lat, lng: driver.coords.lng }
+            })
+            marker.setMap(map)
+        }
+    });
 }
 
 function addCircleOnUserLocation(marker, map) {

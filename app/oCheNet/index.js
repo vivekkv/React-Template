@@ -1,12 +1,10 @@
-import Socket from './socket'
-
 export default class OcheNetwork {
 
     constructor() {
-        new Socket().init();
+        this.socket = io.connect();
     }
 
-    init() {
-        
+    getSocket() {
+         return this.socket;
     }
 }

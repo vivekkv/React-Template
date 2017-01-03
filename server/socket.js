@@ -1,15 +1,14 @@
-exports.init = function(io) {
+var MapService = require('./bll/services/mapService')
+
+exports.init = (io) => {
+
+    var objMapService = new MapService();
     io.sockets.on("connection", function(socket) {
 
-        // console.log("ONE USER CONNECTED >>>>>>>>>>>>>>>");
-        // socket.on("hi server", function(data) {
-        //     socket.broadcast.emit('testclient', data);
-        // });
-
-        socket.on("sayHello", function() {
-            console.log("Hello fro client");
+        socket.on("getConnctedDrivers", function(data) {
+            objMapService.getConnectedDrivers(data.viewPort).then((connectedDrivers) => {
+                 socket.emit('connectedDrivers', connectedDrivers)
+            }) 
         })
-
-        socket.emit('hi baby', {'date': new Date()});
-    });
+    })
 }

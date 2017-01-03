@@ -1,7 +1,14 @@
-// import { loginFlow, logoutFlow, registerFlow } from './login'
+import { fork } from 'redux-saga/effects'
+import { fetchAvilableDirvers } from './map'
+import { take } from 'redux-saga/effects'
 
-// export default function * root () {
-//   yield fork(loginFlow)
-//   yield fork(logoutFlow)
-//   yield fork(registerFlow)
-// }
+function* testData() {
+    while(true) {
+        yield take("DONE")
+    }
+}
+
+export default function* root() {
+    yield fork(testData)
+    yield fork(fetchAvilableDirvers)
+}

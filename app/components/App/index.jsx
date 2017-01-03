@@ -1,19 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Map from '../Map/index.jsx';
-import Home from '../Home/index.jsx';
-import { location } from '../../selectors/app.js';
+import { getAvilableDrivers } from '../../actions/map'
+import Map from '../Map/index.jsx'
+import Home from '../Home/index.jsx'
 
 class App extends React.Component {
     render() {
-        return (<Map {...this.props}/>)
+        return (<Map />)
     }
 }
 
-function mapStateProps(state) {
-    return {
-        'center': location(state)
-    }
-}
-
-export default connect(mapStateProps)(App)
+export default connect()(App)
