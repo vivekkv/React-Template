@@ -1,3 +1,6 @@
+import coords from '../coords.js'
+import { getMapViewPort, buildMarker } from '../utils.js'
+
 export default class EventBinder {
 
     constructor(map) {
@@ -11,12 +14,22 @@ export default class EventBinder {
     bindOnUserTilesChange() {
         var self = this;
         this.map.addListener('bounds_changed', function (e) {
-
-           var viewportLatLngBounds = self.map.getBounds();
-           var topCenterLatLng = new google.maps.LatLng(viewportLatLngBounds.getNorthEast().lat(), viewportLatLngBounds.getCenter().lng());
-           var metersRadius = google.maps.geometry.spherical.computeDistanceBetween(viewportLatLngBounds.getCenter(), topCenterLatLng);
-           var radius = metersRadius / 1000;
-           console.log(radius)
+           self.addAllMarkers();
         }); 
+    }
+
+    addAllMarkers() {
+        var currentCoords = { lat: 9.9312328, lng: 76.26730409999999 };
+        var userViewPort = getMapViewPort(this.map);
+        if(userViewPort) {
+            var viewPortCoords = _.filter(coords, (co) => { return userViewPort.lat0 > co.lat && userViewPort.lat1 < co.lat && 
+                 userViewPort.lng0 > co.lng && userViewPort.lng1 < co.lng })
+            viewPortCoords.forEach((co) => {
+                var marker = buildMarker({
+                    coords: { lat: co.lat, lng: co.lng },
+                })
+                marker.setMap(this.map)
+            })
+        }
     }
 }

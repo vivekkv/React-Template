@@ -6,10 +6,6 @@ export default class Socket {
 
     init() {
         this.socket = io.connect();
-        this.socket.on('hi baby', function(data){
-            
-        });
-        this.socket.emit("sayHello", { message: "poo" })
     }
 
     getSocket() {

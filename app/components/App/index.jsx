@@ -6,7 +6,7 @@ import { location } from '../../selectors/app.js';
 
 class App extends React.Component {
     render() {
-        return (<Map />)
+        return (<Map {...this.props}/>)
     }
 }
 
