@@ -10,7 +10,7 @@ class Home extends React.Component {
     render() {
         return (<div className={styles.wrapper}>
             <Navigation />
-            <Content {...this.props}/>
+            
         </div>)
     }
 }
