@@ -1,7 +1,7 @@
 var path = require('path')
 var express = require("express")
 var app = express()
-
+var custResponses = require("./middlewares/customResponses")
 // /** DEV MODE */
 // const webpack = require('webpack')
 // const webpackMiddleware = require('webpack-dev-middleware')
