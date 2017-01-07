@@ -10,5 +10,11 @@ exports.init = (io) => {
                  socket.emit('connectedDrivers', connectedDrivers)
             }) 
         })
+
+        socket.on("connectDriver", function(data) {
+
+            
+
+        })
     })
 }
