@@ -1,7 +1,7 @@
 {
-  "name": "frommetoyou",
+  "name": "testapp",
   "version": "0.1.0",
-  "description": "Blood Donation",
+  "description": "Test",
   "keywords": [
     "express",
     "webpack",

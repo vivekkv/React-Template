@@ -26,10 +26,10 @@ var custResponses = require('./middlewares/customResponses')
 
 // app.use(middleware)
 // app.use(webpackHotMiddleware(compiler))
-app.get('/', function response(req, res) {
-res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'dist/index.html')))
-res.end()
-})
+// app.get('/', function response(req, res) {
+// res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'dist/index.html')))
+// res.end()
+// })
 app.use(custResponses);
 app.use('/assets', express.static(path.join(__dirname, '../app/static/assets')))
 app.use(express.static("dist"))
