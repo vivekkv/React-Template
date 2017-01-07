@@ -1,12 +1,19 @@
+var driver = require("./services/driver")
+
 exports.init = (io) => {
+    
     io.sockets.on("connection", function(socket) {
-
-        socket.on("getConnctedDrivers", function(data) {
+        
+        socket.on("enableDriver", function(driver) {
             
-        })
+            driver.enable(driver, (err, msg) => {
 
-        socket.on("connectDriver", function(data) {
+                if(err) {
 
+                } else {
+                    socket.emit("")
+                }
+            })
         })
     })
 }
