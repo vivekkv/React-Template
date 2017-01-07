@@ -7,6 +7,10 @@
     "webpack",
     "node"
   ],
+  "engines": {
+      "node": "6.9.2",
+      "npm": "3.10.9"
+  },
   "author": "vkv:-)",
   "scripts": {
     "test": "",
