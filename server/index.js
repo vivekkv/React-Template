@@ -2,6 +2,7 @@ var path = require('path')
 var express = require("express")
 var app = express()
 var custResponses = require("./middlewares/customResponses")
+
 // /** DEV MODE */
 // const webpack = require('webpack')
 // const webpackMiddleware = require('webpack-dev-middleware')
@@ -34,8 +35,9 @@ app.get('/', function(req,res) {
   res.sendfile(path.join(__dirname, "./assets/bin/index.html"));
 });
 app.use('/assets', express.static(path.join(__dirname, "./assets")))
-
 app.use(custResponses);
+app.use("/map", require("./routes/map"))
+
 var server_port = process.env.YOUR_PORT || process.env.PORT || 80;
 var server_host = process.env.YOUR_HOST || '0.0.0.0';
 var server = app.listen(server_port, server_host, (err) => {
