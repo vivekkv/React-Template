@@ -50,8 +50,9 @@ app.use("/map", mapRoutes)
     
 //   }
 // })
-
-var server = app.listen(process.env.PORT || 5000, host, (err) => {
+var server_port = process.env.YOUR_PORT || process.env.PORT || 80;
+var server_host = process.env.YOUR_HOST || '0.0.0.0';
+var server = app.listen(server_port,server_host, (err) => {
   if (err) {
     return onError(err)
   }
