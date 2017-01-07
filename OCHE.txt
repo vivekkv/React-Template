@@ -1,0 +1,44 @@
+=> zoom into current user location
+show all nearest lift
+on selection of one taxi will display the driver details with badge 
+badges are based on successs rides
+show drivers realtime locations
+thats it.. every other options are as per their conversation..
+we just track their location until they do the payment.
+if any rider cheat then he would put into black list
+
+PROFIT
+=====================
+
+every taxi owners can sign in freely in this app
+verfications are based on their vehicle no and mobile no and FB
+taxi owners must pay 10rs in every month
+if the taxi owners didnt get any trips also if his profit is less than 250 then he dont want to pay.
+unpaid riders will be black add into blacklist
+
+
+The riders will get share from OCHE.
+if OCHE get 100 bucks in a month the every good riders (as per their rides and reviews) will get 30% / total no of users in the OCHE 
+if taxi owners get good review then he will be shared 20% of the profit
+
+badges = > 
+total runner up in a location => get some of encouragements
+bad runner up in a location => get a motivation 
+
+
+TODO
+=============
+
+Driver Or Rider Connected 
+---------
+
+if driver update his location to his map and show him all connected users in his location\
+if rider then show  the available taxi in his location 
+
+User Registration
+=====================
+
+Rider
+----------
+
+user will give mobile no and vehicle no to sign in to our system
