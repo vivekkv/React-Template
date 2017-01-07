@@ -4,7 +4,7 @@ var app = express()
 var custResponses = require("./middlewares/customResponses")
 
 if(process.env.NODE_ENV == "dev") {
-    
+
   /** DEV MODE */
   const webpack = require('webpack')
   const webpackMiddleware = require('webpack-dev-middleware')
@@ -28,9 +28,9 @@ if(process.env.NODE_ENV == "dev") {
   app.use(middleware)
   app.use(webpackHotMiddleware(compiler))
   app.get('/', function response(req, res) {
-    res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'dist/index.html')))
+    res.write(middleware.fileSystem.readFileSync(path.join(__dirname, "./assets/bin/index.html")))
     res.end()
-  })
+})
 } else {
   app.get('/', function(req,res) {
     res.sendfile(path.join(__dirname, "./assets/bin/index.html"));

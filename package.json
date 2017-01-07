@@ -14,7 +14,7 @@
   "author": "vkv:-)",
   "scripts": {
     "test": "",
-    "start": "cross-env NODE_ENV=dev && node --require babel-register server",
+    "start": "SET NODE_ENV=dev&& node --require babel-register server",
     "build": "rimraf /server/assets/bin && cross-env NODE_ENV=production webpack --config ./webpack.production.config.js --progress --profile --colors"
   },
   "dependencies": {

@@ -7,9 +7,7 @@ export function emitGetConnectedUsers(viewPort) {
 
     socket.emit("getConnctedDrivers", viewPort)
 
-    socket.on("connectedDrivers", function(data) {
-         put({
-            type: "DONE"
-        })
+    socket.on("error" + socket.id, function(data) {
+         alert()
     })
 }

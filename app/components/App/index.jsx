@@ -6,7 +6,7 @@ import Home from '../Home/index.jsx'
 
 class App extends React.Component {
     render() {
-        return (<Home />)
+        return (<Map />)
     }
 }
 

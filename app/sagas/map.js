@@ -5,13 +5,14 @@ import { updateConnectedDrivers } from '../actions/map'
 import OcheNetwork from '../oCheNet'
 
 var socket = new OcheNetwork().getSocket()
-
+socket.on("error" + socket.id, function(connectedDrivers) {
+    alert()
+})
 export function* fetchAvilableDirvers() {
     while(true) {
         let { viewPort, dispatch } = yield take(GET_AVILABLE_DRIVERS)
-        socket.emit("getConnctedDrivers", { viewPort })
-        socket.on("connectedDrivers", function(connectedDrivers) {
-            dispatch(updateConnectedDrivers(connectedDrivers))
+        socket.on("error" + socket.id, function(connectedDrivers) {
+            alert()
         })
     }
 }

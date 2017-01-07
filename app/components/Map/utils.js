@@ -4,7 +4,7 @@ import _ from 'lodash'
 export function loadGMapScript() {
     return new Promise((resolve, reject) => {
         let s = document.createElement('script')
-        s.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAgOrOsvT4C2ZDwoajE14JFNwRAdpS4LlEv=3&libraries=geometry'
+        s.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAzuq7EWmne53VDTx3pLe-v4omL_CrD4KU&libraries=geometry'
         s.onload = resolve
         s.onerror = reject
         let x = document.getElementsByTagName('script')[0]

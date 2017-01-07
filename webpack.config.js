@@ -9,9 +9,9 @@ module.exports = {
     path.join(__dirname, 'app/main.js')
   ],
   output: {
-    path: path.join(__dirname, '/dist/'),
-    filename: '[name].js',
-    publicPath: '/'
+    path: path.join(__dirname, '/server/assets/bin'),
+    filename: '[name]-[hash].min.js',
+    publicPath: '/assets/bin'
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -23,7 +23,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development')
+      'process.env.NODE_ENV': JSON.stringify('dev')
     })
   ],
   module: {
