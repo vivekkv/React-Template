@@ -51,7 +51,7 @@ app.use("/map", mapRoutes)
 //   }
 // })
 
-var server = app.listen(port, host, (err) => {
+var server = app.listen(process.env.PORT || 5000, host, (err) => {
   if (err) {
     return onError(err)
   }
@@ -61,4 +61,3 @@ var server = app.listen(port, host, (err) => {
 var socket = require("socket.io")
 var io = socket(server)
 require('./socket').init(io)
-console.log("MONGO DB CONNECTED !")
