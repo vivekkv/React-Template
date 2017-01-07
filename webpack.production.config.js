@@ -9,9 +9,9 @@ module.exports = {
     path.join(__dirname, 'app/main.js')
   ],
   output: {
-    path: path.join(__dirname, '/dist/'),
+    path: path.join(__dirname, '/server/assets/bin'),
     filename: '[name]-[hash].min.js',
-    publicPath: '/'
+    publicPath: '/assets/bin'
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
