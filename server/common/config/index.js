@@ -1,6 +1,6 @@
 const path = require('path');
 
-const port = 3000
+const port = Number(process.env.PORT || 3000);
 const host = 'localhost'
 
 // makes an object of the form {userJoined: 'userJoined'}
