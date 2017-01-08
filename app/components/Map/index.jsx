@@ -3,8 +3,6 @@ import { loadGMapScript, loadGMap, setMapCenter, addDriverMarkerLocations, addMa
 import MarkerRegistry from './Registries/Marker'
 import EventBinder from './Events/eventBinder.js'
 import { connect } from 'react-redux'
-import { getAvilableDrivers } from '../../actions/map'
-import { avilableDrivers } from '../../selectors/map'
 import styles from './styles.css'
 
 class MapView extends React.Component {
@@ -55,28 +53,24 @@ MapView.props = {
     zoom  : React.PropTypes.number,
     draggableCursor: React.PropTypes.string,
     driverLocations: React.PropTypes.array,
-    styles: React.PropTypes.array,
-    avilableDrivers: React.PropTypes.array
+    styles: React.PropTypes.array
 }
 
 MapView.defaultProps = {
     styles: [{ featureType: "poi", elementType: "labels", stylers: [{ visibility: "off" }]}],
     zoom : 18,
-    draggableCursor: "crosshair",
-    avilableDrivers: []
+    draggableCursor: "crosshair"
 }
 
 function mapStateToProps(state) {
     return {
-        "avilableDrivers" : avilableDrivers(state) 
+       
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        "getAvilableDrivers" : function (viewPort) {
-            dispatch(getAvilableDrivers(viewPort, dispatch))
-        }
+       
     }
 }   
 

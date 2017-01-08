@@ -1,0 +1,69 @@
+const express = require('express');
+const passport = require('passport');
+const router = new express.Router();
+
+router.post('/login', (req, res, next) => {
+
+  const validationResult = validateLoginForm(req.body)
+
+  if (!validationResult.success) {
+    return res.status(400).json({
+      success: false,
+      message: validationResult.message,
+      errors: validationResult.errors
+    })
+  }
+
+  return passport.authenticate('local-login', (err, token, userData) => {
+
+    if (err) {
+
+      if (err.name === 'IncorrectCredentialsError') {
+        return res.status(400).json({
+          success: false,
+          message: err.message
+        })
+      }
+      return res.status(400).json({
+        success: false,
+        message: 'Could not process the form.'
+      })
+    }
+
+  return res.json({
+            success: true,
+            message: 'You have successfully logged in!',
+            token,
+            user: userData
+        })
+  })(req, res, next)
+})
+
+function validateLoginForm(payload) {
+
+  const errors = {}
+  let isFormValid = true
+  let message = ''
+
+  if (!payload || typeof payload.mobile !== 'string' || payload.mobile.trim().length === 0) {
+    isFormValid = false
+    errors.mobile = 'Please provide your mobile address.'
+  }
+
+  if (!payload || typeof payload.password !== 'string' || payload.password.trim().length === 0) {
+    isFormValid = false;
+    errors.password = 'Please provide your password.'
+  }
+
+  if (!isFormValid) {
+    message = 'Check the form for errors.'
+  }
+
+  return {
+    success: isFormValid,
+    message,
+    errors
+  }
+}
+
+module.exports = router

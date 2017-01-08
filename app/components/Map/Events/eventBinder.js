@@ -14,7 +14,7 @@ export default class EventBinder {
     getDriversAroundMe() {
         var self = this;
         this.map.addListener('tilesloaded', function (e) {
-            self.props.getAvilableDrivers(getMapViewPort(self.map))
+            
         });     
     }
 

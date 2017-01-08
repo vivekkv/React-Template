@@ -1,11 +1,12 @@
 import React,  { PropTypes  } from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router'
 import Navigation from '../Navigation/index.jsx'
 import Textbox from '../../Presentational/Textbox/index.jsx'
 import Form from '../../Presentational/Form/index.jsx'
-import { connect } from 'react-redux'
 import { inputChanged, submitLogin } from '../../../actions/login'
+import { selectLogin } from '../../../selectors/login'
 import styles from './styles.css'
-import { Link } from 'react-router'
 
 class Login extends React.Component {
  
@@ -16,11 +17,11 @@ class Login extends React.Component {
 
     render() {
         return (<div className={styles.login_wrapper}>
-                <Form>
+                <Form onSubmit={this.processLogin} formData={this.props.loginData} onChange={this.props.onChange}>
                     <h1 className={styles.login_header}>account login</h1>
-                    <input className={styles.input} placeholder="enter your mobile number" />
-                    <input className={styles.input} placeholder="enter your password" />
-                    <input  type="submit" value="Sign me in!" className={styles.submit_btn}/>
+                    <Textbox type="text" name="mobile" placeholder="enter your mobile number" />
+                    <Textbox type="password" name="password" placeholder="enter your password" />
+                    <input type="submit" value="Sign me in!" className={styles.submit_btn}/>
                     <div className="text-center">
                          <Link to="/register">create an account</Link> - <a href="#" id="">forgot password</a>
                     </div>
@@ -30,19 +31,24 @@ class Login extends React.Component {
 
     processLogin(e) {
         e.preventDefault()
-        this.props.dispatch(submitLogin(this.props.formData, (route) => {
+        this.props.dispatch(submitLogin(this.props.loginData.toObject(), (route) => {
             this.context.router.replace(route)
         }))
     }
 }
 
+Login.contextTypes = {
+  router: PropTypes.object.isRequired
+};
+
 function mapStateToProps(state) {
     return {
+        'loginData' : selectLogin(state)
     }
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
-    return {
+    return { 
         onChange: function(name, value) {
             dispatch(inputChanged(name, value))   
         },

@@ -1,6 +1,6 @@
 import { fork, take } from 'redux-saga/effects'
-import { fetchAvilableDirvers } from './map'
+import { submitLogin } from './login'
 
 export default function* root() {
-    yield fork(fetchAvilableDirvers)
+    yield fork(submitLogin)
 }

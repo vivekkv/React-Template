@@ -1,49 +1,33 @@
 var path = require('path')
 var express = require("express")
 var app = express()
-var custResponses = require("./middlewares/customResponses")
+var bodyParser = require('body-parser')
+var passport = require('passport')
+var config   = require("./common/config")
 
-// if(process.env.NODE_ENV == "dev") {
+app.use(passport.initialize());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 
-//   /** DEV MODE */
-//   const webpack = require('webpack')
-//   const webpackMiddleware = require('webpack-dev-middleware')
-//   const webpackHotMiddleware = require('webpack-hot-middleware')
-//   const config = require('../webpack.config.js')
+if(process.env.NODE_ENV == "dev") {
+    const middleWare = require("./devMiddleWare")
+    middleWare.init(app)
+} else {
+  app.get('/', function(req,res) {
+    res.sendfile(path.join(__dirname, "./assets/bin/index.html"));
+  })
+}
 
-//   const compiler = webpack(config)
-//   const middleware = webpackMiddleware(compiler, {
-//     publicPath: config.output.publicPath,
-//     contentBase: 'src',
-//     stats: {
-//       colors: true,
-//       hash: false,
-//       timings: true,
-//       chunks: false,
-//       chunkModules: false,
-//       modules: false
-//     }
-//   })
-
-//   app.use(middleware)
-//   app.use(webpackHotMiddleware(compiler))
-//   app.get('/', function response(req, res) {
-//     res.write(middleware.fileSystem.readFileSync(path.join(__dirname, "./assets/bin/index.html")))
-//     res.end()
-// })
-// } else {
-//   
-// }
-app.get('/', function(req,res) {
-  res.sendfile(path.join(__dirname, "./assets/bin/index.html"));
-});
+app.use(require("./middlewares/customResponses"));
+passport.use('local-login', require('./passport/local-login'));
+app.use('/api', require('./middlewares/auth-check'))
 app.use('/assets', express.static(path.join(__dirname, "./assets")))
-app.use(custResponses);
 app.use("/map", require("./routes/map"))
+app.use('/auth', require('./routes/auth'))
 
-var server_port = process.env.YOUR_PORT || process.env.PORT || 80;
-var server_host = process.env.YOUR_HOST || '0.0.0.0';
-var server = app.listen(server_port, server_host, (err) => {
+var server = app.listen(config.port, config.host, (err) => {
   if (err) {
     return onError(err)
   }
