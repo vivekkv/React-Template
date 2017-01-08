@@ -3,11 +3,11 @@ import Navigation from '../Navigation/index.jsx'
 import Textbox from '../../Presentational/Textbox/index.jsx'
 import Form from '../../Presentational/Form/index.jsx'
 import { connect } from 'react-redux'
-import { inputChanged, submitLogin } from '../../../actions/login'
+import { inputChanged, submitLogin } from '../../../actions/register'
 import styles from './styles.css'
 import { Link } from 'react-router'
 
-class Login extends React.Component {
+class Register extends React.Component {
  
     constructor(props, context) {
         super(props, context)
@@ -15,14 +15,15 @@ class Login extends React.Component {
     }
 
     render() {
-        return (<div className={styles.login_wrapper}>
+        return (<div className={styles.register_wrapper}>
                 <Form>
-                    <h1 className={styles.login_header}>account login</h1>
-                    <input className={styles.input} placeholder="enter your mobile number" />
-                    <input className={styles.input} placeholder="enter your password" />
-                    <input  type="submit" value="Sign me in!" className={styles.submit_btn}/>
+                    <h1 className={styles.register_header}>create an account</h1>
+                    <input className={styles.input} placeholder="what is your mobile number ?" />
+                    <input className={styles.input} placeholder="choose password" />
+                    <input className={styles.input} placeholder="confirm password" />
+                    <input  type="submit" value="Sign me up!" className={styles.submit_btn}/>
                     <div className="text-center">
-                         <Link to="/register">create an account</Link> - <a href="#" id="">forgot password</a>
+                        already have an account?<Link to={"/"}>login</Link>
                     </div>
                 </Form>
             </div>)
@@ -50,4 +51,4 @@ function mapDispatchToProps(dispatch, ownProps) {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Register)

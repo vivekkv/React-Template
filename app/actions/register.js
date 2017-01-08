@@ -1,4 +1,4 @@
-import { INPUT_CHANGED, SUBMIT_LOGIN } from '../constants/login'
+import { INPUT_CHANGED, SUBMIT_LOGIN } from '../constants/register'
 
 export function inputChanged(name, value) {
     return {

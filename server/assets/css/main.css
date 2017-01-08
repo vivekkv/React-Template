@@ -6,11 +6,3 @@
      height: 100%;
      width: 100%;
  }
-
- .navbar-brand>img {
-    display: block;
-    height: 32px;
-    margin: 0;
-    top: 10px;
-    position: absolute;
-}

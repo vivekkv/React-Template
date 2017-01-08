@@ -1,4 +1,4 @@
-.login_wrapper {
+.register_wrapper {
   padding: 10px;
   margin: 50px auto;
   background-color: #fff;
@@ -8,7 +8,7 @@
   width: 345px
 }
 
-.login_header {
+.register_header {
   text-align: center;
   font-size: 175%;
   color: #757575;

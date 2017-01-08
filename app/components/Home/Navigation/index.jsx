@@ -13,7 +13,7 @@ export default class Navigation extends React.Component {
                             <span className="icon-bar"></span>
                             <span className="icon-bar"></span>
                         </button>
-                        <a className="navbar-brand"><img src="/assets/img/autoIco.png" /></a>
+                        <a ><img className={styles.navbar_img_icon} src="/assets/img/autoIco.png" /></a>
                     </div>
                     <div className="collapse navbar-collapse">
                         <ul className="nav navbar-nav">

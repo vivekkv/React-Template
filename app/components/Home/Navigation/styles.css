@@ -1,3 +1,12 @@
 .navbarinverse {
-    background: #f3e219
+    height: 50px;
+    border-bottom: 1px solid #2970dc
+}
+
+ .navbar_img_icon {
+    display: block;
+    height: 32px;
+    margin: 0 0 0 5px;
+    top: 18px;
+    position: absolute;
 }
