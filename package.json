@@ -14,7 +14,7 @@
   "author": "vkv:-)",
   "scripts": {
     "test": "",
-    "start": "SET NODE_ENV=dev&& node --require babel-register server",
+    "start": "cross-env NODE_ENV=dev&& node --require babel-register server",
     "build": "rimraf /server/assets/bin && cross-env NODE_ENV=production webpack --config ./webpack.production.config.js --progress --profile --colors"
   },
   "dependencies": {
@@ -29,7 +29,8 @@
     "react-router": "^3.0.0",
     "react-router-redux": "^4.0.7",
     "socket.io": "^1.7.2",
-    "sqlite3": "^3.1.8"
+    "sqlite3": "^3.1.8",
+    "cross-env": "^1.0.7"
   },
   "devDependencies": {
     "autoprefixer": "^6.0.3",
