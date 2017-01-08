@@ -10,7 +10,7 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, '/server/assets/bin'),
-    filename: '[name]-[hash].min.js',
+    filename: '[name].min.js',
     publicPath: '/assets/bin'
   },
   plugins: [
