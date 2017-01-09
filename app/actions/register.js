@@ -1,4 +1,4 @@
-import { INPUT_CHANGED, SUBMIT_LOGIN } from '../constants/register'
+import { INPUT_CHANGED, NEW_ACCOUNT_REGISTER, REGISTER_ERRORS } from '../constants/register'
 
 export function inputChanged(name, value) {
     return {
@@ -8,10 +8,17 @@ export function inputChanged(name, value) {
     }
 }
 
-export function submitLogin(formData, openRoute) {
+export function addNewAccount(data, openRoute) {
     return {
-        type: SUBMIT_LOGIN,
-        formData,
+        type: NEW_ACCOUNT_REGISTER,
+        data,
         openRoute
+    }
+}
+
+export function onError(errors) {
+    return {
+        type: REGISTER_ERRORS,
+        errors
     }
 }

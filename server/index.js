@@ -22,6 +22,7 @@ if(process.env.NODE_ENV == "dev") {
 
 app.use(require("./middlewares/customResponses"));
 passport.use('local-login', require('./passport/local-login'));
+passport.use('local-signup', require('./passport/local-signup'));
 app.use('/api', require('./middlewares/auth-check'))
 app.use('/assets', express.static(path.join(__dirname, "./assets")))
 app.use("/map", require("./routes/map"))

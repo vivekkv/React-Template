@@ -5,8 +5,7 @@
         "name": "Debug chrome",
         "type": "chrome",
         "request": "launch",
-        "preLaunchTask": "development",
-        "url": "http://metacode.io:3000/",
+        "preLaunchTask": "dev",
         "sourceMaps": true
     },
     {
@@ -22,12 +21,12 @@
             "--nolazy"
         ],
         "env": {
-            "NODE_ENV": "development"
+            "NODE_ENV": "dev"
         },
         "externalConsole": false,
         "preLaunchTask": "",
         "sourceMaps": true,
-        "outDir": "${workspaceRoot}/dist"
+        "outDir": "${workspaceRoot}/server/assets/bin"
     }
 ]
 }

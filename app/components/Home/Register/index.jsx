@@ -1,27 +1,29 @@
 import React,  { PropTypes  } from 'react'
-import Navigation from '../Navigation/index.jsx'
+import { connect } from 'react-redux'
+import { Link } from 'react-router'
 import Textbox from '../../Presentational/Textbox/index.jsx'
 import Form from '../../Presentational/Form/index.jsx'
-import { connect } from 'react-redux'
-import { inputChanged, submitLogin } from '../../../actions/register'
+import Notify from '../../Presentational/Utils/notify.jsx'
+import { inputChanged, addNewAccount } from '../../../actions/register'
+import { selectData, selectErrors } from '../../../selectors/register'
 import styles from './styles.css'
-import { Link } from 'react-router'
 
 class Register extends React.Component {
  
     constructor(props, context) {
         super(props, context)
-        this.processLogin = this.processLogin.bind(this)
+        this.register = this.register.bind(this)
     }
 
     render() {
         return (<div className={styles.register_wrapper}>
-                <Form>
+                <Form onSubmit={this.register} formData={this.props.objAccount} onChange={this.props.onChange}>
                     <h1 className={styles.register_header}>create an account</h1>
-                    <input className={styles.input} placeholder="what is your mobile number ?" />
-                    <input className={styles.input} placeholder="choose password" />
-                    <input className={styles.input} placeholder="confirm password" />
-                    <input  type="submit" value="Sign me up!" className={styles.submit_btn}/>
+                    <Textbox type="text" name="mobile" placeholder="what is your mobile number ?" />
+                    <Textbox type="text" name="password" placeholder="choose password" />
+                    <Textbox type="text" name="confirmPassword" placeholder="confirm password" />
+                    <input type="submit" value="Sign me up!" className={styles.submit_btn}/>
+                    <Notify errorCheck={true} data={this.props.errors} type="warning"/>
                     <div className="text-center">
                         already have an account?<Link to={"/"}>login</Link>
                     </div>
@@ -29,16 +31,23 @@ class Register extends React.Component {
             </div>)
     } 
 
-    processLogin(e) {
+    register(e) {
         e.preventDefault()
-        this.props.dispatch(submitLogin(this.props.formData, (route) => {
+        this.props.dispatch(addNewAccount(this.props.data.toObject(), (route) => {
             this.context.router.replace(route)
         }))
     }
 }
 
+Register.contextTypes = {
+  router: PropTypes.object.isRequired
+};
+
 function mapStateToProps(state) {
+    console.log(selectData(state))
     return {
+        'data' : selectData(state),
+        'errors': selectErrors(state)
     }
 }
 

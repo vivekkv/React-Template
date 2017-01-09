@@ -1,33 +1,34 @@
 import { take, call, put } from 'redux-saga/effects'
-import { SUBMIT_LOGIN } from '../constants/login'
-import {  onLoginError } from '../actions/login'
+import { NEW_ACCOUNT_REGISTER } from '../constants/register'
+import { submitLogin } from '../actions/login'
+import {  onError } from '../actions/register'
 import Auth from '../auth'
 import { request } from '../utils.js'
-
-export function* submitLogin() { 
+ 
+export function* addNewAccount() { 
     while(true) {
-        let { data, openRoute } = yield take(SUBMIT_LOGIN);
+        let { data, openRoute } = yield take(NEW_ACCOUNT_REGISTER);
         try {
             let validate =  validateFormData(data)
             if(validate.valid) {
-                let response = yield call(request, '/auth/login', {
+                let response = yield call(request, '/auth/signup', {
                     method: 'POST',
                     body: JSON.stringify({
                         "mobile": data.mobile.value,
-                        "password": data.password.value
+                        "password": data.password.value,
+                        "confirmPassword": data.confirmPassword.value
                     }),  
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 });
                 if(response.err) {
-                    yield put(onLoginError({ valid: false, message: "Mobile or Password is invalid" }))
+                    yield put(onError({ valid: false, message: "Registration failed" }))
                 } else {
-                    Auth.authenticateUser(response.data.token)
-                    openRoute("/")
+                   yield put(submitLogin(data, openRoute))
                 }
             } else {
-                yield put(onLoginError(validate))
+                yield put(onError(validate))
             }
         }
         catch(e) {
@@ -45,8 +46,17 @@ function validateFormData(formData) {
     } else if(!formData.mobile || (formData.mobile && !formData.mobile.value)) {
         message = "mobile number cannot be empty"
         valid = false
+    } else if(!(/^\d{10}$/.test(formData.mobile.value))) {
+        message = "mobile number is not valid"
+        valid = false
     } else if(!formData.password || (formData.password && !formData.password.value)) {
         message = "password cannot be empty"
+        valid = false
+    } else if((formData.confirmPassword && formData.confirmPassword.value) && formData.password.value != formData.confirmPassword.value) {
+        message = "confirmPassword password is not matching"
+        valid = false
+    } else if(!formData.confirmPassword || !formData.confirmPassword.value) {
+        message = "confirm password cannot be empty"
         valid = false
     }
     return {

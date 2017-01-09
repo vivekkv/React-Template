@@ -1,6 +1,10 @@
 .navbarinverse {
     height: 50px;
-    border-bottom: 1px solid #dadada
+    position: absolute;
+    border-bottom: 1px solid rgba(226, 226, 226, 0.39);
+    top: 0;
+    z-index: 1;
+    width: 100%
 }
 
  .navbar_img_icon {

@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const PassportLocalStrategy = require('passport-local').Strategy
 const config = require('../common/config')
-const users = require('../db/testData/users')
+const dbUser = require('../db/testData/users')
 const _ = require("lodash")
 
 module.exports = new PassportLocalStrategy({
@@ -17,19 +17,22 @@ module.exports = new PassportLocalStrategy({
         mobile: mobile.trim(),
         password: password.trim()
     };
-    const user = _.find(users, (u) => {
+    
+    const objUser = _.find(dbUser.getUsers(), (u) => {
         return u.mobile == mobile
     })
-    if (user) {
+
+    if (objUser) {
         
-        if (userData.password == user.password) {
+        if (userData.password == objUser.password) {
+
             const payload = {
-                sub: user.id
+                sub: objUser.id
             };
-            // create a token string
+
             const token = jwt.sign(payload, config.jwtSecret);
             const data = {
-                name: user.name
+                name: objUser.name
             };
             return done(null, token, data);
         } else {
