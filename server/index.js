@@ -16,17 +16,19 @@ if(process.env.NODE_ENV == "dev") {
     middleWare.init(app)
 } else {
   app.get('/', function(req,res) {
-    res.sendfile(path.join(__dirname, "./assets/bin/index.html"));
+    res.sendfile(path.join(__dirname, "./assets/bin/index.html"))
   })
 }
 
-app.use(require("./middlewares/customResponses"));
-passport.use('local-login', require('./passport/local-login'));
-passport.use('local-signup', require('./passport/local-signup'));
+app.use(require("./middlewares/customResponses"))
+passport.use('local-login', require('./passport/local-login'))
+passport.use('local-signup', require('./passport/local-signup'))
+
 app.use('/api', require('./middlewares/auth-check'))
 app.use('/assets', express.static(path.join(__dirname, "./assets")))
 app.use("/map", require("./routes/map"))
-app.use('/auth', require('./routes/auth'))
+app.use("/auth", require('./routes/auth'))
+
 
 var server = app.listen(config.port, config.host, (err) => {
   if (err) {

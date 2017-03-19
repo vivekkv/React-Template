@@ -1,44 +1,20 @@
-=> zoom into current user location
-show all nearest lift
-on selection of one taxi will display the driver details with badge 
-badges are based on successs rides
-show drivers realtime locations
-thats it.. every other options are as per their conversation..
-we just track their location until they do the payment.
-if any rider cheat then he would put into black list
-
-PROFIT
-=====================
-
-every taxi owners can sign in freely in this app
-verfications are based on their vehicle no and mobile no and FB
-taxi owners must pay 10rs in every month
-if the taxi owners didnt get any trips also if his profit is less than 250 then he dont want to pay.
-unpaid riders will be black add into blacklist
-
-
-The riders will get share from OCHE.
-if OCHE get 100 bucks in a month the every good riders (as per their rides and reviews) will get 30% / total no of users in the OCHE 
-if taxi owners get good review then he will be shared 20% of the profit
-
-badges = > 
-total runner up in a location => get some of encouragements
-bad runner up in a location => get a motivation 
-
-
 TODO
-=============
+-------------------------------------------------------
+Step 1: user login
+Step 2: he got the token and he can query 
+Step 3: connect client to server using socket
+Step 4: after login he redirect to map view
+Step 5: show his location and mark it with blue circle
+Step 6: get all marker cordinates around his location
+Step 7: user can click any marker to get action
+Step 8: actions should be dynamic
 
-Driver Or Rider Connected 
----------
+Actions
+-----------------
 
-if driver update his location to his map and show him all connected users in his location\
-if rider then show  the available taxi in his location 
+Transpotation: => onClick user must get transpotation details and can contact hime
+Blood => user can alert the donor and ask him to contact
+Resturants => onClick user must get transpotation details and can contact hime
+Bus => show bus locations
+Accomadations => onClick user must get transpotation details and can contact him
 
-User Registration
-=====================
-
-Rider
-----------
-
-user will give mobile no and vehicle no to sign in to our system
